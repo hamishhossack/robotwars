@@ -2,53 +2,96 @@
 
 ## Getting Started
 
-### Clone the repo:
+**Clone the repo:**
 ```sh
 git clone git@github.com:hamishhossack/robotwars.git
 cd robotwars
 ```
 
-### Install dependencies:
+**Install dependencies:**
 ```sh
 npm install
 ```
 
-### Create Database
+**Create Database:**
+> **NOTE:** Change the IP address to match your mongo instance (Docker or other), please change in server/config/env/{development,production,test}.js
+
 ```sh
 docker run -d -p 2017:27017 --name mongo mongo
 ```
-> NOTE: Change the IP address to match your mongo instance (Docker or other), please change in server/config/env/{development,production,test}.js
 
-### Start server:
+**Start server:**
 ```sh
-# set DEBUG env variable to get debug logs
-DEBUG=robotwars:* npm start
-# OR
-# requires gulp to be installed globally
 npm i -g gulp
 gulp serve
 ```
 
-### Execute tests:
+**Execute tests:**
 ```sh
 # compile with babel and run tests
-npm test (or gulp mocha)
-
+gulp mocha
 # use --code-coverage-reporter text to get code coverage for each file
 gulp mocha --code-coverage-reporter text
 ```
 
-### Test calls
+## How to play the game
 
-Download [Postman](https://www.getpostman.com/)
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/7fe888e473c80a2aa7fc)
+> The API calls are in order to this section on *How to play the game*, **BEWARE** you need to update `TYPE._id.GOES.HERE` on all requests with the returned.
 
-Install [Postman Collection](https://www.getpostman.com/collections/7fe888e473c80a2aa7fc)
+**Prerequisites**
 
-> My test calls please follow order due to inheritence.
+**init()** Create ROBOT-ONE - `# POST localhost:3000/api/robots/`
+```json
+{
+  "name": "ROBOT-ONE",
+  "coordinateX": 1,
+  "coordinateY": 2,
+  "bearing": "N"
+}
+```
+**.then()** Create ROBOT-TWO - `# POST localhost:3000/api/robots/`
+```json
+{
+  "name": "ROBOT-TWO",
+  "coordinateX": 3,
+  "coordinateY": 3,
+  "bearing": "E"
+}
+```
+**.then()** Create Game with your ROBOT-ONE & ROBOT-TWO - `# POST localhost:3000/api/games/`
+```json
+{
+  "name": "GAME1",
+  "boundaryX": 5,
+  "boundaryY": 5,
+  "robots": ["ROBOT-ONE._id.GOES.HERE", "ROBOT-TWO._id.GOES.HERE"]
+}
+```
+**Commands**
 
-1. Create Robot
-2. Create Game With `Robot._id`
-3. Add Command With `Game._id` and `Robot._id`
+**.then()** Make a move with player ROBOT-ONE - `# POST localhost:3000/api/commands/move`
+```json
+{
+  "gameId": "GAME._id.GOES.HERE",
+  "robotId": "ROBOT-ONE._id.GOES.HERE",
+  "direction": "LMLMLMLMM"
+}
+```
+
+**.then()** Make a move with ROBOT-TWO - `# POST localhost:3000/api/commands/move`
+```json
+{
+  "gameId": "GAME._id.GOES.HERE",
+  "robotId": "ROBOT-TWO._id.GOES.HERE",
+  "direction": "MMRMMRMRRM"
+}
+```
+
+**.then()** Get ROBOT-ONE - `# GET localhost:3000/api/robots/${ROBOT-ONE._id.GOES.HERE}`
+
+**.then()** Get ROBOT-TWO - `# GET localhost:3000/api/robots/${ROBOT-TWO._id.GOES.HERE}`
+
 
 ## Criteria
 
@@ -76,20 +119,21 @@ Acceptance criteria
 
 In order to confirm your API is working correctly, we have provided some test input and output for your use. Implement these details however you consider most appropriate.
 
-### Test input:
+### Test Case:
 
-5 5
+**Inputs:**
+Game area boundaries: 5 5
 
-1 2 N
+First Player Position: 1 2 N
 
-LMLMLMLMM
+First Player Move: LMLMLMLMM
 
-3 3 E
+Second Player Position: 3 3 E
 
-MMRMMRMRRM
+Second Player Move: MMRMMRMRRM
 
-Expected output:
+**Expected output:**
 
-1 3 N
+First Player Finish: 1 3 N
 
-5 1 E
+Second Player Finish: 5 1 E
