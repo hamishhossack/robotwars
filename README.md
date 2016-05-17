@@ -38,6 +38,15 @@ npm test (or gulp mocha)
 gulp mocha --code-coverage-reporter text
 ```
 
+My test calls please follow order due to inheritence.
+
+[Get PostMan](https://www.getpostman.com/)
+[PostMan Collection](https://www.getpostman.com/collections/7fe888e473c80a2aa7fc)
+
+1. Create Robot
+2. Create Game With `Robot._id`
+3. Add Command With `Game._id` and `Robot._id`
+
 ## Criteria
 
 A fleet of hand built robots are due to engage in battle for the annual “Robot Wars” competition. Each robot will be placed within a rectangular battle arena and will navigate their way around the arena using a built in computer system.
