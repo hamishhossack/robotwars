@@ -53,8 +53,6 @@ function move(req, res, next) {
 					position = instructions[saveCommand.direction](position);
 				}
 
-				if ()
-
 				robot.coordinateX = position.x;
 				robot.coordinateY = position.y;
 				robot.bearing = position.bearing;
