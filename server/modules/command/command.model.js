@@ -7,7 +7,7 @@ import APIError from '../../helpers/APIError';
  * User Schema
  */
 const CommandSchema = new mongoose.Schema({
-	command: {
+	direction: {
 		type: String,
 		required: true
 	},
@@ -17,10 +17,6 @@ const CommandSchema = new mongoose.Schema({
 	},
 	gameId: {
 		type: mongoose.Schema.ObjectId,
-		required: true
-	},
-	value: {
-		type: String,
 		required: true
 	},
 	createdAt: {

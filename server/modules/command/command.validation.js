@@ -1,16 +1,8 @@
 import Joi from 'joi';
 
 export default {
-	// POST /api/commands/move
+	// POST /api/commands/move/:direction
 	commandMove: {
-		body: {
-			robotId: Joi.string().hex().required(),
-			gameId: Joi.string().hex().required()
-		}
-	},
-
-	// POST /api/commands/rotate
-	commandRotate: {
 		body: {
 			robotId: Joi.string().hex().required(),
 			gameId: Joi.string().hex().required(),

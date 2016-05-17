@@ -9,10 +9,6 @@ router.route('/move')
 	/** POST /api/commands - Create new command */
 	.post(validate(paramValidation.commandMove), commandCtrl.move);
 
-router.route('/rotate')
-	/** POST /api/commands - Create new command */
-	.post(validate(paramValidation.commandRotate), commandCtrl.rotate);
-
 router.route('/:commandId')
 	/** GET /api/commands/:commandId - Get command */
 	.get(commandCtrl.get);
