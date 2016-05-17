@@ -23,7 +23,6 @@ docker-compose up
 
 **Execute tests:**
 ```sh
-docker exec -ti
 # compile with babel and run tests
 gulp mocha
 # use --code-coverage-reporter text to get code coverage for each file
