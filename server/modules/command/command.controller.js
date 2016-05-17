@@ -40,20 +40,24 @@ function move(req, res, next) {
 			Game.getWithRobot(saveCommand.gameId, saveCommand.robotId).then((game) => {
 				const robot = game.robots[0];
 
+				if (!robot) {
+					const err = new APIError('No such robot exists in this game!', httpStatus.NOT_FOUND);
+					return next(err);
+				}
+
 				let position = {
 					bearing: robot.bearing,
 					x: robot.coordinateX,
 					y: robot.coordinateY
 				};
 
-				if (!robot) {
-					const err = new APIError('No such robot exists in this game!', httpStatus.NOT_FOUND);
-					return next(err);
-				}
+				const robotMovements = saveCommand.direction.split('');
 
-				if (instructions.hasOwnProperty(saveCommand.direction)) {
-					position = instructions[saveCommand.direction](position);
-				}
+				robotMovements.forEach((movement) => {
+					if (instructions.hasOwnProperty(movement)) {
+						position = instructions[movement](position);
+					}
+				});
 
 				if (!validator.validatePosition(game, position)) {
 					const err = new APIError('This position is not in the arena!', httpStatus.NOT_FOUND);

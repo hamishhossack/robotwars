@@ -27,9 +27,9 @@ function create(req, res, next) {
 	const robot = new Robot();
 
 	robot.name = req.body.name;
-	robot.coordinateX = 0;
-	robot.coordinateY = 0;
-	robot.bearing = 'N';
+	robot.coordinateX = req.body.coordinateX || 0;
+	robot.coordinateY = req.body.coordinateY || 0;
+	robot.bearing = req.body.bearing || 'N';
 
 	robot.saveAsync()
 		.then((saveRobot) => res.json(saveRobot))

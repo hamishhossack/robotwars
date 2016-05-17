@@ -18,25 +18,27 @@ describe('## Game APIs', () => {
 	};
 
 	describe('# POST /api/games', () => {
-		it('should create a new game', (done) => {
+		beforeEach((done) => {
 			request(app)
 				.post('/api/robots')
 				.send(robot)
 				.expect(httpStatus.OK)
-				.then(resRobot => {
-					expect(resRobot.body.name).to.equal(robot.name);
-					robot = resRobot.body;
+				.then(res => {
+					robot = res.body;
 					game.robots.push(robot._id);
+					done();
+				});
+		});
 
-					request(app)
-						.post('/api/games')
-						.send(game)
-						.expect(httpStatus.OK)
-						.then(resGame => {
-							expect(resGame.body.name).to.equal(game.name);
-							game = resGame.body;
-							done();
-						});
+		it('should create a new game', (done) => {
+			request(app)
+				.post('/api/games')
+				.send(game)
+				.expect(httpStatus.OK)
+				.then(res => {
+					expect(res.body.name).to.equal(game.name);
+					game = res.body;
+					done();
 				});
 		});
 	});
