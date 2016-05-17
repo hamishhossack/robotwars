@@ -7,8 +7,12 @@ import app from '../../../index';
 chai.config.includeStack = true;
 
 describe('## Game APIs', () => {
+	let robot = {
+		name: 'testbot'
+	};
 	let game = {
 		name: 'GAME1',
+		robots: [],
 		boundaryX: 5,
 		boundaryY: 5
 	};
@@ -16,13 +20,23 @@ describe('## Game APIs', () => {
 	describe('# POST /api/games', () => {
 		it('should create a new game', (done) => {
 			request(app)
-				.post('/api/games')
-				.send(game)
+				.post('/api/robots')
+				.send(robot)
 				.expect(httpStatus.OK)
-				.then(res => {
-					expect(res.body.name).to.equal(game.name);
-					game = res.body;
-					done();
+				.then(resRobot => {
+					expect(resRobot.body.name).to.equal(robot.name);
+					robot = resRobot.body;
+					game.robots.push(robot._id);
+
+					request(app)
+						.post('/api/games')
+						.send(game)
+						.expect(httpStatus.OK)
+						.then(resGame => {
+							expect(resGame.body.name).to.equal(game.name);
+							game = resGame.body;
+							done();
+						});
 				});
 		});
 	});
