@@ -2,24 +2,24 @@
 
 ## Getting Started
 
-Clone the repo:
+### Clone the repo:
 ```sh
 git clone git@github.com:hamishhossack/robotwars.git
 cd robotwars
 ```
 
-Install dependencies:
+### Install dependencies:
 ```sh
 npm install
 ```
 
-Create Database
+### Create Database
 ```sh
 docker run -d -p 2017:27017 --name mongo mongo
 ```
 > NOTE: Change the IP address to match your mongo instance (Docker or other), please change in server/config/env/{development,production,test}.js
 
-Start server:
+### Start server:
 ```sh
 # set DEBUG env variable to get debug logs
 DEBUG=robotwars:* npm start
@@ -29,7 +29,7 @@ npm i -g gulp
 gulp serve
 ```
 
-Execute tests:
+### Execute tests:
 ```sh
 # compile with babel and run tests
 npm test (or gulp mocha)
@@ -38,11 +38,13 @@ npm test (or gulp mocha)
 gulp mocha --code-coverage-reporter text
 ```
 
-My test calls please follow order due to inheritence.
+### Test calls
 
-[Get PostMan](https://www.getpostman.com/)
-[PostMan Collection](https://www.getpostman.com/collections/7fe888e473c80a2aa7fc)
+Download [Postman](https://www.getpostman.com/)
 
+Install [Postman Collection](https://www.getpostman.com/collections/7fe888e473c80a2aa7fc)
+
+> My test calls please follow order due to inheritence.
 1. Create Robot
 2. Create Game With `Robot._id`
 3. Add Command With `Game._id` and `Robot._id`
