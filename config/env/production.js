@@ -1,5 +1,5 @@
 export default {
 	env: 'production',
-	db: 'mongodb://192.168.99.101/robotwars',
+	db: 'mongodb://db/robotwars',
 	port: 3000
 };

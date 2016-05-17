@@ -19,14 +19,10 @@ docker run -d -p 2017:27017 --name mongo mongo
 ```
 > NOTE: Change the IP address to match your mongo instance (Docker or other), please change in server/config/env/{development,production,test}.js
 
-Start server:
+Start server in Docker:
 ```sh
-# set DEBUG env variable to get debug logs
-DEBUG=robotwars:* npm start
-# OR
-# requires gulp to be installed globally
-npm i -g gulp
-gulp serve
+docker build -t robotwars .
+docker run -d -p 3000:3000 --name robotwars robotwars
 ```
 
 Execute tests:
