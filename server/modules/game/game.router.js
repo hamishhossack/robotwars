@@ -1,22 +1,22 @@
 import express from 'express';
 import validate from 'express-validation';
-import paramValidation from './robot.validation';
-import robotCtrl from './robot.controller';
+import paramValidation from './game.validation';
+import gameCtrl from './game.controller';
 
 const router = express.Router();	// eslint-disable-line new-cap
 
 router.route('/')
-	/** POST /api/robots - Create new robot */
-	.post(validate(paramValidation.createRobot), robotCtrl.create);
+	/** POST /api/games - Create new game */
+	.post(validate(paramValidation.createGame), gameCtrl.create);
 
-router.route('/:robotId')
-	/** GET /api/robots/:robotId - Get robot */
-	.get(robotCtrl.get)
+router.route('/:gameId')
+	/** GET /api/games/:gameId - Get game */
+	.get(gameCtrl.get)
 
-	/** PUT /api/robots/:robotId - Update robot */
-	.put(validate(paramValidation.updateRobot), robotCtrl.update);
+	/** PUT /api/games/:gameId - Update game */
+	.put(validate(paramValidation.updateGame), gameCtrl.update);
 
-/** Load robot when API with robotId route parameter is hit */
-router.param('robotId', robotCtrl.load);
+/** Load game when API with gameId route parameter is hit */
+router.param('gameId', gameCtrl.load);
 
 export default router;

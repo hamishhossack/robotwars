@@ -1,5 +1,6 @@
 import express from 'express';
 import robotRoutes from '../modules/robot/robot.router';
+import gameRoutes from '../modules/game/game.router';
 
 const router = express.Router();	// eslint-disable-line new-cap
 
@@ -8,6 +9,9 @@ router.get('/health-check', (req, res) =>
 	res.send('OK')
 );
 
+/** Setup All /robots routes **/
 router.use('/robots', robotRoutes);
+/** Setup All /games routes **/
+router.use('/games', gameRoutes);
 
 export default router;

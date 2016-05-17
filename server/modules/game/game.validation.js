@@ -1,20 +1,24 @@
 import Joi from 'joi';
 
 export default {
-	// POST /api/robots
-	createRobot: {
+	// POST /api/games
+	createGame: {
 		body: {
-			name: Joi.string().required()
+			name: Joi.string().required(),
+			boundaryX: Joi.number().required(),
+			boundaryY: Joi.number().required()
 		}
 	},
 
-	// UPDATE /api/robots/:robotId
-	updateRobot: {
+	// UPDATE /api/games/:gameId
+	updateGame: {
 		body: {
-			name: Joi.string().required()
+			name: Joi.string(),
+			boundaryX: Joi.number(),
+			boundaryY: Joi.number()
 		},
 		params: {
-			robotId: Joi.string().hex().required()
+			gameId: Joi.string().hex().required()
 		}
 	}
 };

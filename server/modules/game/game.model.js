@@ -6,9 +6,17 @@ import APIError from '../../helpers/APIError';
 /**
  * User Schema
  */
-const RobotSchema = new mongoose.Schema({
+const GameSchema = new mongoose.Schema({
 	name: {
 		type: String,
+		required: true
+	},
+	boundaryX: {
+		type: Number,
+		required: true
+	},
+	boundaryY: {
+		type: Number,
 		required: true
 	},
 	createdAt: {
@@ -27,30 +35,30 @@ const RobotSchema = new mongoose.Schema({
 /**
  * Methods
  */
-RobotSchema.method({});
+GameSchema.method({});
 
 /**
  * Statics
  */
-RobotSchema.statics = {
+GameSchema.statics = {
 	/**
-	 * Get robot
-	 * @param {ObjectId} id - The objectId of robot.
-	 * @returns {Promise<Robot, APIError>}
+	 * Get game
+	 * @param {ObjectId} id - The objectId of game.
+	 * @returns {Promise<Game, APIError>}
 	 */
 	get(id) {
 		return this.findById(id)
-			.execAsync().then((robot) => {
-				if (robot) {
-					return robot;
+			.execAsync().then((game) => {
+				if (game) {
+					return game;
 				}
-				const err = new APIError('No such robot exists!', httpStatus.NOT_FOUND);
+				const err = new APIError('No such game exists!', httpStatus.NOT_FOUND);
 				return Promise.reject(err);
 			});
 	}
 };
 
 /**
- * @typedef Robot
+ * @typedef Game
  */
-export default mongoose.model('Robot', RobotSchema);
+export default mongoose.model('Game', GameSchema);

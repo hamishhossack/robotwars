@@ -1,52 +1,54 @@
-import Robot from './robot.model';
+import Game from './game.model';
+import config from '../../../config/env';
 
 /**
- * Load Robot and append to req
+ * Load Game and append to req
  */
 function load(req, res, next, id) {
-	Robot.get(id).then((robot) => {
-		req.robot = robot;				// eslint-disable-line no-param-reassign
+	Game.get(id).then((game) => {
+		req.game = game;				// eslint-disable-line no-param-reassign
 		next();
 	}).error((e) => next(e));
 }
 
 /**
- * Get robot
- * @returns {Robot}
+ * Get game
+ * @returns {Game}
  */
 function get(req, res) {
-	res.json(req.robot);
+	res.json(req.game);
 }
 
 /**
  * Update existing user
- * @property {string} req.body.name - The name of robot.
- * @returns {Robot}
+ * @property {string} req.body.name - The name of game.
+ * @returns {Game}
  */
 function create(req, res, next) {
-	const robot = new Robot();
+	const game = new Game();
 
-	robot.name = req.body.name;
+	game.name = req.body.name;
+	game.boundaryX = req.body.boundaryX || config.game.boundaryX; // Use defaults
+	game.boundaryY = req.body.boundaryY || config.game.boundaryY; // Use defaults
 
-	robot.saveAsync()
-		.then((saveRobot) => res.json(saveRobot))
+	game.saveAsync()
+		.then((saveGame) => res.json(saveGame))
 		.error((e) => next(e));
 }
 
 /**
- * Update existing robot
- * @property {integer} req.body.x - The x position of robot.
- * @property {integer} req.body.y - The y position of robot.
- * @returns {Robot}
+ * Update existing game
+ * @property {integer} req.body.name
+ * @returns {Game}
  */
 function update(req, res, next) {
-	const robot = req.robot;
+	const game = req.game;
 
-	robot.name = req.body.name;
+	game.name = req.body.name;
 
-	robot.saveAsync()
-		.then((savedRobot) => {
-			res.json(savedRobot);
+	game.saveAsync()
+		.then((savedGame) => {
+			res.json(savedGame);
 		})
 		.error((e) => next(e));
 }
