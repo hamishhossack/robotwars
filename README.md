@@ -13,17 +13,13 @@ Install dependencies:
 npm install
 ```
 
-Create Database
+Start server in Docker with compose (for simplicity):
 ```sh
-docker run -d -p 2017:27017 --name mongo mongo
+docker-compose up
 ```
+
 > NOTE: Change the IP address to match your mongo instance (Docker or other), please change in server/config/env/{development,production,test}.js
 
-Start server in Docker:
-```sh
-docker build -t robotwars .
-docker run -d -p 3000:3000 --name robotwars robotwars
-```
 
 Execute tests:
 ```sh
