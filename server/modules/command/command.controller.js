@@ -1,6 +1,7 @@
 import httpStatus from 'http-status';
 import APIError from '../../helpers/APIError';
 import instructions from '../../helpers/instructions';
+import validator from '../../helpers/validators';
 import Command from './command.model';
 import Game from '../game/game.model';
 
@@ -38,6 +39,7 @@ function move(req, res, next) {
 		.then((saveCommand) => {
 			Game.getWithRobot(saveCommand.gameId, saveCommand.robotId).then((game) => {
 				const robot = game.robots[0];
+
 				let position = {
 					bearing: robot.bearing,
 					x: robot.coordinateX,
@@ -51,6 +53,11 @@ function move(req, res, next) {
 
 				if (instructions.hasOwnProperty(saveCommand.direction)) {
 					position = instructions[saveCommand.direction](position);
+				}
+
+				if (!validator.validatePosition(game, position)) {
+					const err = new APIError('This position is not in the arena!', httpStatus.NOT_FOUND);
+					return next(err);
 				}
 
 				robot.coordinateX = position.x;
