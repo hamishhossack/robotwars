@@ -1,5 +1,4 @@
 import Game from './game.model';
-import config from '../../../config/env';
 
 /**
  * Load Game and append to req
@@ -22,14 +21,18 @@ function get(req, res) {
 /**
  * Update existing user
  * @property {string} req.body.name - The name of game.
+ * @property {number} req.body.boundaryX - The X axis boundary length
+ * @property {number} req.body.boundaryY - The Y axis boundary length
+ * @property {array} req.body.robots - The list of playing robots
  * @returns {Game}
  */
 function create(req, res, next) {
 	const game = new Game();
 
 	game.name = req.body.name;
-	game.boundaryX = req.body.boundaryX || config.game.boundaryX; // Use defaults
-	game.boundaryY = req.body.boundaryY || config.game.boundaryY; // Use defaults
+	game.boundaryX = req.body.boundaryX;
+	game.boundaryY = req.body.boundaryY;
+	game.robots = req.body.robots;
 
 	game.saveAsync()
 		.then((saveGame) => res.json(saveGame))
@@ -45,6 +48,7 @@ function update(req, res, next) {
 	const game = req.game;
 
 	game.name = req.body.name;
+	game.robots = req.body.robots;
 
 	game.saveAsync()
 		.then((savedGame) => {

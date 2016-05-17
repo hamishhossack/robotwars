@@ -11,6 +11,9 @@ const RobotSchema = new mongoose.Schema({
 		type: String,
 		required: true
 	},
+	posX: Number,
+	posY: Number,
+	bearing: String,
 	createdAt: {
 		type: Date,
 		default: Date.now

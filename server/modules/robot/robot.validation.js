@@ -11,7 +11,10 @@ export default {
 	// UPDATE /api/robots/:robotId
 	updateRobot: {
 		body: {
-			name: Joi.string().required()
+			name: Joi.string(),
+			posX: Joi.number(),
+			posY: Joi.number(),
+			bearing: Joi.string()
 		},
 		params: {
 			robotId: Joi.string().hex().required()

@@ -6,7 +6,8 @@ export default {
 		body: {
 			name: Joi.string().required(),
 			boundaryX: Joi.number().required(),
-			boundaryY: Joi.number().required()
+			boundaryY: Joi.number().required(),
+			robots: Joi.array().items(Joi.string())
 		}
 	},
 
@@ -15,7 +16,8 @@ export default {
 		body: {
 			name: Joi.string(),
 			boundaryX: Joi.number(),
-			boundaryY: Joi.number()
+			boundaryY: Joi.number(),
+			robots: Joi.array().items(Joi.string())
 		},
 		params: {
 			gameId: Joi.string().hex().required()

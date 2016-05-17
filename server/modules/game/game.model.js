@@ -19,6 +19,7 @@ const GameSchema = new mongoose.Schema({
 		type: Number,
 		required: true
 	},
+	robots: [{ type: mongoose.Schema.ObjectId, ref: 'Robot' }],
 	createdAt: {
 		type: Date,
 		default: Date.now
@@ -53,6 +54,24 @@ GameSchema.statics = {
 					return game;
 				}
 				const err = new APIError('No such game exists!', httpStatus.NOT_FOUND);
+				return Promise.reject(err);
+			});
+	},
+	/**
+	 * Get game with a robot
+	 * @param {ObjectId} id
+	 * @param {ObjectId} robotId
+	 * @returns {Promise<Game, APIError>}
+	 */
+	getWithRobot(id, robotId) {
+		return this.findById(id)
+			.populate('robots', null, { _id: robotId })
+			.execAsync()
+			.then((gameWithRobot) => {
+				if (gameWithRobot) {
+					return gameWithRobot;
+				}
+				const err = new APIError('No such game exists', httpStatus.NOT_FOUND);
 				return Promise.reject(err);
 			});
 	}

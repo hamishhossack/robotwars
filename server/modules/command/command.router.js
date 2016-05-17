@@ -5,9 +5,13 @@ import commandCtrl from './command.controller';
 
 const router = express.Router();	// eslint-disable-line new-cap
 
-router.route('/')
+router.route('/move')
 	/** POST /api/commands - Create new command */
-	.post(validate(paramValidation.createCommand), commandCtrl.create);
+	.post(validate(paramValidation.commandMove), commandCtrl.move);
+
+router.route('/rotate')
+	/** POST /api/commands - Create new command */
+	.post(validate(paramValidation.commandRotate), commandCtrl.rotate);
 
 router.route('/:commandId')
 	/** GET /api/commands/:commandId - Get command */

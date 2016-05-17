@@ -27,6 +27,9 @@ function create(req, res, next) {
 	const robot = new Robot();
 
 	robot.name = req.body.name;
+	robot.posX = 0;
+	robot.posY = 0;
+	robot.bearing = 'N';
 
 	robot.saveAsync()
 		.then((saveRobot) => res.json(saveRobot))
